@@ -7,7 +7,7 @@ from django.db import models
 
 # Create your models here.
 class UserDetails(models.Model):
-    user = models.ForeignKey(to=User, on_delete=models.CASCADE)
+    user = models.OneToOneField(to=User, on_delete=models.CASCADE)
     is_seller = models.BooleanField(default=False)
     user_uuid = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
     address = models.TextField()
