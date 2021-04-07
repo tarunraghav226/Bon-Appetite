@@ -41,3 +41,9 @@ class Login(View):
             return redirect("/")
         else:
             return redirect("/")
+
+
+class Logout(View):
+    def get(self, request):
+        auth.logout(request)
+        return redirect("/")
