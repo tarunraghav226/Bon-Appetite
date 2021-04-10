@@ -1,551 +1,78 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-
-    <title>Foodies Hub</title>
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-
-    <link
-      href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
-      rel="stylesheet"
-    />
-
-
-<style>
-    * {
-  margin: 0px auto;
-  padding: 0px;
-  text-align: center;
-  font-family: 'Open Sans', sans-serif;
-
-}
-
-.cont_principal {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#fbfaf6+9,d4cebf+74,d4cebf+74,d4cebf+100 */
-background: rgb(251,250,246); /* Old browsers */
-background: -moz-linear-gradient(-45deg,  rgba(251,250,246,1) 9%, rgba(212,206,191,1) 74%, rgba(212,206,191,1) 74%, rgba(212,206,191,1) 100%); /* FF3.6-15 */
-background: -webkit-linear-gradient(-45deg,  rgba(251,250,246,1) 9%,rgba(212,206,191,1) 74%,rgba(212,206,191,1) 74%,rgba(212,206,191,1) 100%); /* Chrome10-25,Safari5.1-6 */
-background: linear-gradient(135deg,  rgba(251,250,246,1) 9%,rgba(212,206,191,1) 74%,rgba(212,206,191,1) 74%,rgba(212,206,191,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-
-}
-
-
-.cont_central {
-position: absolute;
-  width: 100%;
-  top: 50%;
-  margin-top: -200px;
-}
-
-.cont_modal {
-  position: relative;
-  width: 300px;
-  height: 400px;
-  -webkit-transition: all 0.5s;
-  -o-transition: all 0.5s;
-  transition: all 0.5s;
-transition-delay: 0.7s;
--webkit-transition-delay: 0.7s;
--o-transition-delay: 0.7s;
-transition-delay: 0.7s;
-}
-
-.cont_photo {
-  position: relative;
-  width: 300px;
-  height: 440px;
-  overflow: hidden;
-  background-color: #eee;
-  border-radius:5px;
-top: -20px;
-float: left;
-z-index: 2;
--webkit-transition: all 0.5s;
--o-transition: all 0.5s;
-transition: all 0.5s;
-transition: all 0.5s;
-box-shadow: 1px 1px 20px -5px rgba(0,0,0,0.5);
-}
-
-.cont_img_back {
-  position: absolute;
-width: 100%;
-height: 100%;
-overflow: hidden;
-border-radius:5px ;
-}
-.cont_img_back > img {
-  width: 100%;
-opacity: 0.7;
--webkit-transition: all 0.5s;
--o-transition: all 0.5s;
-transition: all 0.5s;
-transition: all 1s;
-}
-
-.cont_img_back:hover > img {
-  transform: scale(1.5);
-}
-
-.cont_text_ingredients {
-position: absolute;
-  width: 0px;
-top: 0px;
-left: 290px;
-  margin-left: 10px;
-  height: 400px;
-  float: left;
-  border-radius:5px ;
-z-index: 3;
-box-shadow: 1px 1px  20px  -5px  rgba(0,0,0,0.2);
-
-  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#fbf9f9+28,e8eaed+100 */
-background: rgb(251,249,249); /* Old browsers */
-background: -moz-linear-gradient(-45deg,  rgba(251,249,249,1) 28%, rgba(232,234,237,1) 100%); /* FF3.6-15 */
-background: -webkit-linear-gradient(-45deg,  rgba(251,249,249,1) 28%,rgba(232,234,237,1) 100%); /* Chrome10-25,Safari5.1-6 */
-background: linear-gradient(135deg,  rgba(251,249,249,1) 28%,rgba(232,234,237,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-
--webkit-transition: all 0.5s;
--o-transition: all 0.5s;
-transition: all 0.5s;
-transition-delay: 0.7s;
--webkit-transition-delay: 0.7s;
--o-transition-delay: 0.7s;
-transition-delay: 0.7s;
-}
-
-.cont_mins{
-position: relative;
-float: left;
-  width: 100%;
-}
-
-.sub_mins {
-  position: relative;
-  float: left;
-  width: 60px;
-  height: 60px;
-  background-color: rgba(255,253,112,0.8);
-border-radius:50% ;
-margin: 16px;
-margin-bottom: 0px;
-opacity: 0;
-  -webkit-transition: all 0.5s;
-  -o-transition: all 0.5s;
-  transition: all 0.5s;
-  transition: all 0.5s;
-transition-delay: 1s;
--webkit-transition-delay: 1s;
--o-transition-delay: 1s;
-transition-delay: 1s;
-
-}
-
-.sub_mins > h3 {
-  font-size: 24px;
-margin-top: 7px;
-  margin-bottom: -15px;
-}
-
-.sub_mins > span {
-  font-size: 9px;
-  font-weight: 700;
-}
-
-.cont_servings {
-  position: relative;
-  float: left;
-  width: 60px;
-  height: 60px;
-  background-color: rgba(255,253,112,0.8);
-border-radius:50% ;
-margin: 16px;
-opacity: 0;
-  -webkit-transition: all 0.5s;
-  -o-transition: all 0.5s;
-  transition: all 0.5s;
-transition-delay: 0.7s;
--webkit-transition-delay: 0.7s;
--o-transition-delay: 0.7s;
-transition-delay: 0.7s;
-}
-
-.cont_servings > h3 {
-  font-size: 24px;
-margin-top: 5px;
-  margin-bottom: -15px;
-}
-
-.cont_servings > span {
-  font-size: 9px;
-  font-weight: 700;
-}
-.cont_icon_right {
-  position: relative;
-float: right;
-  margin-top: 16px;
-}
-.cont_icon_right  > a  {
-margin: 16px;
-margin-top: 16px;
-  color: #fff;
-}
-
-.cont_detalles {
-  position: absolute;
-bottom:-185px;
-  height: 200px;
-  border-radius:5px ;
-/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+100,000000+101&0+0,0.65+68 */
-background: -moz-linear-gradient(top,  rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 68%, rgba(0,0,0,0.65) 100%, rgba(0,0,0,0.65) 101%); /* FF3.6-15 */
-background: -webkit-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 68%,rgba(0,0,0,0.65) 100%,rgba(0,0,0,0.65) 101%); /* Chrome10-25,Safari5.1-6 */
-background: linear-gradient(to bottom,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 68%,rgba(0,0,0,0.65) 100%,rgba(0,0,0,0.65) 101%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-
-
-width: 100%;
--webkit-transition: all 0.5s;
--o-transition: all 0.5s;
-transition: all 0.5s;
-  transition-delay: 1.2s;
--webkit-transition-delay: 0.7s;
--o-transition-delay: 0.7s;
-transition-delay: 0.7s;}
-
-
-.cont_detalles > h3 {
-  margin-top: 50px;
- color: #fff;
-  font-size: 24px;
-}
-
-.cont_detalles > p {
-  color: #fff;
-width: 80%;
-  text-align:left;
-  font-size: 14px;
-}
-
-/* ---------------- Css Tabs -------- */
-
-.cont_tabs {
-  position: relative;
-  float: left;
-  width: 410px;
-  height: 60px;
-border-bottom: 3px solid #EDEDEC;
-}
-
-.cont_tabs > ul {
-  width: 300px;
-  background-color: #eee;
-}
-
-.cont_tabs > ul > li {
-  position: relative;
-  float: left;
-  width: 50%;
-list-style: none;
-}
-
-.cont_tabs > ul > li > a {
-border-top: 7px solid #ED346C;
-  position: relative;
-  display: block;
-  float: left;
-padding-top: 15px;
-  color: #241C3E;
-  text-decoration: none;
-  margin-left: 15px;
-font-size: 14px;
-}
-
-.cont_tabs > ul > li:first-child > a
-{
-  border-top: 7px solid rgba(237, 52, 108, 0);
-  margin-top: 0px;
-  color: #9A96A4;
--webkit-transition: all 0.5s;
--o-transition: all 0.5s;
-transition: all 0.5s;
-transition: all 0.2s;
-}
-
-.cont_tabs > ul > li:first-child > a:hover {
-  border-top: 7px solid #ED346C;
-padding-top: 15px;
-  color: #241C3E;
- margin-top: 0px;
-}
-
-.cont_btn_open_dets {
-  position: absolute;
-  right: -15px;
-  top:50%;
-}
-.cont_btn_open_dets  > a {
-display: block;
-  padding-top: -5px;
-width: 30px;
-  height: 30px;
-  background-color: #ED2460;
-border-radius:50% ;
-color: #fff;
-box-shadow: 0px 0px 20px -2px rgba(237, 36, 96, 1);
--webkit-transition: all 0.5s;
--o-transition: all 0.5s;
-transition: all 0.5s;
-transition: all 0.5s;
-transform: rotate(180deg);
-
-}
-
-
-.cont_btn_open_dets  > a > i {
-  margin-top: 4px;
-}
-
-.cont_title_preparation {
-   position: relative;
-  float: left;
-margin:10px 0px ;
-width: 410px;
-}
-.cont_title_preparation > p {
-  font-weight: 700;
-font-size: 14px;
-  margin-left: 40px;
-text-align: left;
-color: #36354E;
-}
-
-.cont_info_preparation {
-  position: relative;
-  float: left;
-}
-.cont_info_preparation > p {
-  margin: 5px 0px;
-  margin-left: 50px;
-border-left: 2px solid #E3E3E3;
-font-size: 12px;
-  padding: 20px 0px;
-padding-left: 20px;
-text-align: left;
-padding-right: 15px;
-color: #565656;
-}
-
-.cont_btn_mas_dets {
-  position: absolute;
-  bottom:0px;
-  left: 50%;
-}
-.cont_btn_mas_dets > a {
-  color: #36354E;
-}
-
-.cont_over_hidden {
-  position: relative;
-  float: left;
-  width: 100%;
-height: 400px;
-  overflow: hidden;
-}
-
-.cont_text_det_preparation {
-  position: relative;
-  width: 410px;
-}
-
-.cont_modal_active > .cont_text_ingredients  > .cont_btn_open_dets > a {
-  transform: rotate(0deg);
-}
-.cont_modal_active > .cont_text_ingredients{
-  width: 410px;
-left: 285px;
-z-index: 1;
-box-shadow: 15px 20px  70px  -5px  rgba(0,0,0,0.2);
-}
-.cont_modal_active {
-width: 700px;
-}
-
-.cont_modal_active > .cont_photo {
-box-shadow: 25px 10px 70px -5px rgba(0,0,0,0.3);
-}
-
-.cont_modal_active > .cont_photo > .cont_mins > .sub_mins {
-  opacity: 1;
-}
-
-.cont_modal_active  > .cont_photo > .cont_servings {
-  opacity: 1;
-}
-
-.cont_modal_active > .cont_photo  > .cont_detalles{
-  bottom: 0px;
-}
-
-.ovalbutton{
-
-  background-color:black;
-  border: none;
-  outline:none !important;
-  color:#ca7a11;
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  margin: 4px 2px;
-  cursor: pointer;
-  border-radius: 16px;
-}
-.ovalbutton:hover{
-  background-color: #eccc72;
-  color:black;
-
-}
-
-.ovalbutton:active {
-  background-color: #d3b86f;
-  box-shadow: 0 5px #666;
-  transform: translateY(4px);
-}
-
-
-
-</style>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bon Appetite</title>
+  <link rel="stylesheet" href="{% static 'css/base.css' %}">
+  <script src="{% static 'javascript/login_modal.js' %}" defer ></script>
+  {% block head%}
+  {% endblock%}
 </head>
-
 <body>
-
-<!-- Navbar -->
-    <header class="text-gray-600 body-font">
-      <div
-        class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center"
-      >
-        <a
-          class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0"
-        >
-          <span class="ml-3 text-xl" style="color: #f19737; font-size: 30px;"><i>Foodies-Hub<i></span>
-        </a>
-        <nav
-          class="md:ml-auto flex flex-wrap items-center text-base justify-center"
-        >
-        <i class="fa fa-home" aria-hidden="true"> <a href="" class="mr-5 hover:text-gray-900" style="padding-right: 10px; color: #f19737;">Home</a></i>
-        <i aria-hidden="true" class="fa fa-users"><a href="" class="mr-5 hover:text-gray-900" style="padding-right: 10px; color: #f19737;">About</a></i>
-            {% if user.is_authenticated %}
-            {{user.username}}
-            <i class="fa fa-sign-out" aria-hidden="true"><a href="{% url 'logout' %}"  class="mr-5 hover:text-white" style="color: #5cbdbb; font-size: 18px;">Logout</a></i>
-        {% else %}
-              <i class="fa fa-user" aria-hidden="true"><a href="{% url 'login' %}" class="mr-5 hover:text-gray-900" style="padding-right: 10px; color: #f19737;">Login</a></i>
-        <i class="fa fa-user-plus" aria-hidden="true"><a href="{% url 'register' %}" class="mr-5 hover:text-gray-900" style="padding-right: 10px; color: #f19737;">Sign Up</a></i>
-        {% endif %}
-        </nav>
-      </div>
+    <header class="header">
+        <span class="company--name">Bon Appetite</span>
+        <ul class="header--ul">
+          <li class="header--li">Home</li>
+          <li class="header--li" id="login">Login</li>
+          <li class="header--li" id="signup">SignUp</li>
+        </ul>
     </header>
-
-
-{% block main %}
-{% endblock %}
-
-
-    <!-- Footer -->
-    <hr style="background-color: #f19737;">
-
-
-    <footer class="text-gray-600 body-font">
-        <div class="container px-5 py-24 mx-auto flex md:items-center lg:items-start md:flex-row md:flex-nowrap flex-wrap flex-col">
-          <div class="w-64 flex-shrink-0 md:mx-0 mx-auto text-center md:text-left">
-            <a class="flex title-font font-medium items-center md:justify-start justify-center text-gray-900">
-              <span class="ml-3 text-xl" style="color: #f19737;">Foodies Hub</span>
-            </a>
+    <div class="overlay--modal" >
+      <div class="close--modal--btn">X</div>
+    </div>
+    <div class="form--login">
+      <form action="#" method="POST">
+          <div class="username">
+            <label for="username">Username </label><br>
+            <input type="text" id="username">
           </div>
-          <div class="flex-grow flex flex-wrap md:pl-20 -mb-10 md:mt-0 mt-10 md:text-left text-center">
-            <div class="lg:w-1/4 md:w-1/2 w-full px-4">
-              <h2 class="title-font font-medium text-gray-900 tracking-widest text-sm mb-3" style="color: #f19737;">CATEGORIES</h2>
-              <nav class="list-none mb-10">
-                <li>
-                  <a class="text-gray-600 hover:text-gray-800">First Link</a>
-                </li>
-                <li>
-                  <a class="text-gray-600 hover:text-gray-800">Second Link</a>
-                </li>
-
-              </nav>
-            </div>
-            <div class="lg:w-1/4 md:w-1/2 w-full px-4">
-              <h2 class="title-font font-medium text-gray-900 tracking-widest text-sm mb-3" style="color: #f19737;">CATEGORIES</h2>
-              <nav class="list-none mb-10">
-                <li>
-                  <a class="text-gray-600 hover:text-gray-800">First Link</a>
-                </li>
-                <li>
-                  <a class="text-gray-600 hover:text-gray-800">Second Link</a>
-                </li>
-
-              </nav>
-            </div>
-            <div class="lg:w-1/4 md:w-1/2 w-full px-4">
-              <h2 class="title-font font-medium text-gray-900 tracking-widest text-sm mb-3" style="color: #f19737;">CATEGORIES</h2>
-              <nav class="list-none mb-10">
-                <li>
-                  <a class="text-gray-600 hover:text-gray-800">First Link</a>
-                </li>
-                <li>
-                  <a class="text-gray-600 hover:text-gray-800">Second Link</a>
-                </li>
-
-              </nav>
-            </div>
-            <div class="lg:w-1/4 md:w-1/2 w-full px-4">
-              <h2 class="title-font font-medium text-gray-900 tracking-widest text-sm mb-3" style="color: #f19737;">CATEGORIES</h2>
-              <nav class="list-none mb-10">
-                <li>
-                  <a class="text-gray-600 hover:text-gray-800">First Link</a>
-                </li>
-                <li>
-                  <a class="text-gray-600 hover:text-gray-800">Second Link</a>
-                </li>
-
-              </nav>
-            </div>
+          <div class="password">
+            <label for="login--password">Password </label><br>
+            <input type="password" id="login--password">
           </div>
-        </div>
-        <div class="bg-gray-100">
-          <div class="container mx-auto py-4 px-5 flex flex-wrap flex-col sm:flex-row">
-            <p class="text-gray-500 text-sm text-center sm:text-left" style="color: #f19737;">© 2021 Foodies Hub
-            </p>
-            <span class="inline-flex sm:ml-auto sm:mt-0 mt-2 justify-center sm:justify-start">
-              <a class="text-gray-500">
-                <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
-                  <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path>
-                </svg>
-              </a>
-              <a class="ml-3 text-gray-500">
-                <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
-                  <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path>
-                </svg>
-              </a>
-              <a class="ml-3 text-gray-500">
-                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
-                  <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
-                  <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01"></path>
-                </svg>
-              </a>
-              <a class="ml-3 text-gray-500">
-                <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="0" class="w-5 h-5" viewBox="0 0 24 24">
-                  <path stroke="none" d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"></path>
-                  <circle cx="4" cy="4" r="2" stroke="none"></circle>
-                </svg>
-              </a>
-            </span>
+          <button class="submit--btn">Login</button>
+      </form>
+    </div>
+    <div class="form--signup">
+      <form action="#" method="POST">
+          <div class="fName">
+            <label for="fName">First Name </label><br>
+            <input type="text" id="fName">
           </div>
-        </div>
-      </footer>
-
+          <div class="lName">
+            <label for="lName">Last Name </label><br>
+            <input type="text" id="lName">
+          </div>
+          <div class="email">
+            <label for="email">Email </label><br>
+            <input type="text" id="email">
+          </div>
+          <div class="address">
+            <label for="address">Address </label><br>
+            <input type="text" id="address">
+          </div>
+          <div class="merchant">
+            <label for="merchant">Merchant </label><br>
+            <input type="text" id="merchant">
+          </div>
+          <div class="password">
+            <label for="signup--password">Password </label><br>
+            <input type="password" id="signup--password">
+          </div>
+          <div class="password">
+            <label for="cnfrm--pass">Password </label><br>
+            <input type="password" id="cnfrm--pass">
+          </div>
+          <button class="submit--btn">SignUp</button>
+      </form>
+    </div>
+    {% block main%}
+    {% endblock %}
+    <footer>
+        <span class="company--name">Bon Appetite</span>
+    </footer>
 </body>
 </html>
