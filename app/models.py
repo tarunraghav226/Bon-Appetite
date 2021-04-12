@@ -20,6 +20,10 @@ class Shop(models.Model):
     shop_address = models.TextField()
 
 
+def get_image_address(instance, filename):
+    return "user_{0}/{1}".format(instance.shop_id.user.username, filename)
+
+
 class Food(models.Model):
     shop_id = models.ForeignKey(to=Shop, on_delete=models.CASCADE)
     food_id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
@@ -27,6 +31,8 @@ class Food(models.Model):
     food_desc = models.TextField()
     discount_on_food = models.FloatField(default=0)
     food_count = models.IntegerField(default=0)
+    food_image = models.ImageField(upload_to=get_image_address, default=None)
+    food_price = models.FloatField(default=0)
 
 
 class FoodComment(models.Model):
