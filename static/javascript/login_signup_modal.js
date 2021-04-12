@@ -6,6 +6,8 @@ const modalOverlay = document.querySelector(".overlay--modal");
 const closeModalBtn =  document.querySelector(".close--modal--btn");
 const signUpForm = document.querySelector(".form--signup");
 
+const messageCloseBtn = document.getElementById("message--close--icon");
+
 loginForm.style.display = "none";
 modalOverlay.style.display = "none";
 closeModalBtn.style.display = "none";
@@ -55,4 +57,8 @@ signup.addEventListener('click', ()=>{
         signUpForm.style.display = "none";
     else 
         signUpForm.style.display = "block";
+});
+
+messageCloseBtn.addEventListener("click", ()=>{
+    document.querySelector(".messages").style.display = "none";
 });
