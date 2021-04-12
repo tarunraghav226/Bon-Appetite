@@ -15,8 +15,9 @@ class UserDetails(models.Model):
 
 class Shop(models.Model):
     shop_id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
-    user = models.ForeignKey(to=User, on_delete=models.CASCADE)
-    shop_add = models.TextField()
+    user = models.OneToOneField(to=User, on_delete=models.CASCADE)
+    shop_name = models.CharField(max_length=40, default=None)
+    shop_address = models.TextField()
 
 
 class Food(models.Model):
