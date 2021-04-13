@@ -21,6 +21,9 @@
               <li class="header--li" id="signup">SignUp</li>
             {% else %}
               <a href="/logout/"><li class="header--li" id="logout">Logout</li></a>
+              {% if is_seller %}
+              <a href="/shop/"><li class="header--li" >Shop</li></a>
+              {% endif %}
             {% endif %}
         </ul>
     </header>

@@ -5,11 +5,15 @@ from django.views import View
 
 from helpers import user_helper
 
-from .models import UserDetails
+from .models import Food, Shop, UserDetails
 
 
 def home(request):
-    return render(request, "home.html", {})
+    context = {}
+    if request.user.is_authenticated:
+        user = UserDetails.objects.filter(user=request.user)[0]
+        context["is_seller"] = user.is_seller
+    return render(request, "home.html", context)
 
 
 class Register(View):
@@ -68,3 +72,38 @@ class Logout(View):
     def get(self, request):
         auth.logout(request)
         return redirect("/")
+
+
+class ShopView(View):
+    def get(self, request):
+        context = {}
+
+        if request.user.is_authenticated:
+            user = UserDetails.objects.filter(user=request.user)[0]
+            context["is_seller"] = user.is_seller
+
+        shop = Shop.objects.filter(user=request.user)
+        print(shop)
+        if shop:
+            context["shop"] = shop[0]
+            foods = Food.objects.filter(shop_id=shop[0].shop_id)
+            if foods:
+                context["foods"] = foods
+            return render(request, "shop.html", context)
+        else:
+            return render(request, "shop.html", context)
+
+    def post(self, request):
+        shop = Shop.objects.filter(user=request.user)
+
+        if shop:
+            messages.error(request, "You already have one shop")
+            return redirect("/shop/")
+
+        shop = Shop.objects.create(
+            user=request.user,
+            shop_name=request.POST["shop_name"],
+            shop_address=request.POST["shop_address"],
+        )
+        shop.save()
+        return redirect("/shop/")
