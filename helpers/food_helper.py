@@ -5,7 +5,7 @@ def get_food_details(request):
         "discount_on_food": request.POST["discount_on_food"],
         "food_count": request.POST["food_count"],
         "food_price": request.POST["food_price"],
-        "food_image": request.FILES["food_image"],
+        "food_image": request.FILES.get("food_image", None),
     }
 
     return food_details
