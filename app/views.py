@@ -19,6 +19,7 @@ def home(request):
 class Register(View):
     def post(self, request):
         user_details = user_helper.get_register_user_data(request.POST)
+        print(user_details)
 
         if user_details["pass1"] == "":
             messages.error(request, "Password cannot be empty")
@@ -82,6 +83,7 @@ class ShopView(View):
             context["is_seller"] = user.is_seller
 
         shop = Shop.objects.filter(user=request.user)
+        print(shop)
         if shop:
             context["shop"] = shop[0]
             foods = Food.objects.filter(shop_id=shop[0].shop_id)
@@ -148,92 +150,4 @@ class FoodView(View):
         )
 
         new_food.save()
-        return redirect("/shop/")
-
-
-class EditFoodView(View):
-    def get(self, request, id):
-        context = {}
-
-        if request.user.is_authenticated:
-            user = UserDetails.objects.filter(user=request.user)[0]
-            context["is_seller"] = user.is_seller
-
-        shop = Shop.objects.filter(user=request.user)
-
-        if not shop:
-            messages.error(request, "You are not allowed to perform this action.")
-            return redirect("/shop/")
-
-        food = Food.objects.filter(food_id=id)
-
-        if not food:
-            messages.error(request, "Food not found.")
-            return redirect("/shop/")
-
-        if food[0].shop_id.shop_id != shop[0].shop_id:
-            messages.error(request, "You are not allowed to perform this action.")
-            return redirect("/shop/")
-
-        context["food"] = food[0]
-        context["edit"] = True
-        return render(request, "add-food.html", context)
-
-    def post(self, request):
-        food_details = food_helper.get_food_details(request)
-        shop = Shop.objects.filter(user=request.user)
-
-        if float(food_details["discount_on_food"]) < 0:
-            messages.error(request, "Discount must be positive")
-            return redirect("/add-food/")
-
-        if float(food_details["food_count"]) < 0:
-            messages.error(request, "Food count must be positive")
-            return redirect("/add-food/")
-
-        if float(food_details["food_price"]) < 0:
-            messages.error(request, "Food price must be positive")
-            return redirect("/add-food/")
-
-        if not shop:
-            messages.error(request, "No shop found")
-            return redirect("/")
-
-        food = Food.objects.filter(shop_id=shop[0], food_id=request.POST["food_id"])
-
-        if not food:
-            print(food)
-            messages.error(request, "Updation failed")
-            return redirect("/")
-
-        food = food[0]
-        food.food_name = food_details["food_name"]
-        food.food_desc = food_details["food_desc"]
-        food.discount_on_food = food_details["discount_on_food"]
-        food.food_count = food_details["food_count"]
-        food.food_price = food_details["food_price"]
-
-        if food_details["food_image"]:
-            food.food_image = food_details["food_image"]
-
-        food.save()
-        return redirect("/shop/")
-
-
-class DeleteFoodView(View):
-    def get(self, request, id):
-        shop = Shop.objects.filter(user=request.user)
-
-        if not shop:
-            messages.error(request, "Failed to delte")
-            return redirect("/shop/")
-        shop = shop[0]
-
-        food = Food.objects.filter(food_id=id, shop_id=shop)
-
-        if not food:
-            messages.error(request, "You are not allowed to perform this action.")
-            return redirect("/shop/")
-        food = food[0]
-        food.delete()
         return redirect("/shop/")
