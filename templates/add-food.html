@@ -6,26 +6,52 @@
 {% endblock %}
 
 {% block main%}
-    <form action="/add-food/" method="POST" class="form--shop" enctype="multipart/form-data">
+    {% if edit %}
+    <form action="/edit/" method="POST" class="form--shop" enctype="multipart/form-data">
         {% csrf_token %}
+        <input type="text" name="food_id" value="{{food.food_id}}" hidden>
         <label for="food_name">Food Name</label><br>
-        <input type="text" name="food_name" id="food_name" required><br>
+        <input type="text" name="food_name" id="food_name" value={{food.food_name}} required><br>
 
         <label for="food_desc">Food Description</label><br>
-        <textarea name="food_desc" id="food_desc" cols="20" rows="10" required></textarea>
+        <textarea name="food_desc" id="food_desc" cols="20" rows="10" required>{{food.food_desc}}</textarea>
 
         <label for="discount_on_food">Discount</label><br>
-        <input type="number" name="discount_on_food" id="discount_on_food" required><br>
+        <input type="number" name="discount_on_food" id="discount_on_food" value="{{food.discount_on_food}}" required><br>
 
         <label for="food_count">Food count</label><br>
-        <input type="number" name="food_count" id="food_count" required><br>
+        <input type="number" name="food_count" id="food_count" value="{{food.food_count}}" required><br>
 
         <label for="food_price">Food price</label><br>
-        <input type="number" name="food_price" id="food_price" required><br>
+        <input type="number" name="food_price" id="food_price" value="{{food.food_price}}" required><br>
 
         <label for="food_image">Food image</label><br>
-        <input type="file" name="food_image" id="food_image" style="padding: 10px;" required><br>
+        <input type="file" name="food_image" id="food_image" style="padding: 10px;"><br>
 
         <button type="submit" class="submit--btn">Submit</button><br>
     </form>
+    {% else %}
+        <form action="/add-food/" method="POST" class="form--shop" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label for="food_name">Food Name</label><br>
+            <input type="text" name="food_name" id="food_name" required><br>
+
+            <label for="food_desc">Food Description</label><br>
+            <textarea name="food_desc" id="food_desc" cols="20" rows="10" required></textarea>
+
+            <label for="discount_on_food">Discount</label><br>
+            <input type="number" name="discount_on_food" id="discount_on_food" required><br>
+
+            <label for="food_count">Food count</label><br>
+            <input type="number" name="food_count" id="food_count" required><br>
+
+            <label for="food_price">Food price</label><br>
+            <input type="number" name="food_price" id="food_price" required><br>
+
+            <label for="food_image">Food image</label><br>
+            <input type="file" name="food_image" id="food_image" style="padding: 10px;" required><br>
+
+            <button type="submit" class="submit--btn">Submit</button><br>
+        </form>
+    {% endif %}
 {% endblock %}
