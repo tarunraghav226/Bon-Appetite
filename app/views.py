@@ -3,7 +3,7 @@ from django.contrib.auth.models import User, auth
 from django.shortcuts import redirect, render
 from django.views import View
 
-from helpers import user_helper
+from helpers import food_helper, user_helper
 
 from .models import Food, Shop, UserDetails
 
@@ -106,4 +106,48 @@ class ShopView(View):
             shop_address=request.POST["shop_address"],
         )
         shop.save()
+        return redirect("/shop/")
+
+
+class FoodView(View):
+    def get(self, request):
+        context = {}
+
+        if request.user.is_authenticated:
+            user = UserDetails.objects.filter(user=request.user)[0]
+            context["is_seller"] = user.is_seller
+
+        return render(request, "add-food.html", context)
+
+    def post(self, request):
+        food_details = food_helper.get_food_details(request)
+        shop = Shop.objects.filter(user=request.user)
+
+        if float(food_details["discount_on_food"]) < 0:
+            messages.error(request, "Discount must be positive")
+            return redirect("/add-food/")
+
+        if float(food_details["food_count"]) < 0:
+            messages.error(request, "Food count must be positive")
+            return redirect("/add-food/")
+
+        if float(food_details["food_price"]) < 0:
+            messages.error(request, "Food price must be positive")
+            return redirect("/add-food/")
+
+        if not shop:
+            messages.error(request, "No shop found")
+            return redirect("/")
+
+        new_food = Food.objects.create(
+            shop_id=shop[0],
+            food_name=food_details["food_name"],
+            food_desc=food_details["food_name"],
+            discount_on_food=food_details["discount_on_food"],
+            food_count=food_details["food_count"],
+            food_image=food_details["food_image"],
+            food_price=food_details["food_price"],
+        )
+
+        new_food.save()
         return redirect("/shop/")

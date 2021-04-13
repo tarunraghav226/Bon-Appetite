@@ -30,4 +30,5 @@ urlpatterns = [
     path("shop/", views.ShopView.as_view(), name="shop"),
     path("edit/<str:id>", views.ShopView.as_view(), name="edit"),
     path("delete/<str:id>", views.ShopView.as_view(), name="delete"),
+    path("add-food/", views.FoodView.as_view(), name="add_food"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -70,3 +70,11 @@
     margin: 20px 0px;
     padding: 10px;
 }
+
+.form--shop textarea{
+    outline: none;
+    padding: 5px;
+    border: 1px solid #faf735;
+    border-radius: 5px;
+    color: #f19737;
+}
