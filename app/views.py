@@ -237,3 +237,15 @@ class DeleteFoodView(View):
         food = food[0]
         food.delete()
         return redirect("/shop/")
+
+
+class ShowFoodView(View):
+    def get(self, request):
+        context = {}
+
+        if request.user.is_authenticated:
+            user = UserDetails.objects.filter(user=request.user)[0]
+            context["is_seller"] = user.is_seller
+        foods = Food.objects.all()
+        context["foods"] = foods
+        return render(request, "show-food.html", context)
