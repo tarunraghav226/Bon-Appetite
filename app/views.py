@@ -249,3 +249,20 @@ class ShowFoodView(View):
         foods = Food.objects.all()
         context["foods"] = foods
         return render(request, "show-food.html", context)
+
+
+class ShowView(View):
+    def get(self, request, id):
+        context = {}
+
+        if request.user.is_authenticated:
+            user = UserDetails.objects.filter(user=request.user)[0]
+            context["is_seller"] = user.is_seller
+
+        food = Food.objects.filter(food_id=id)
+        if not food:
+            messages.error(request, "No food found.")
+            return "/show-food/"
+        food = food[0]
+        context["food"] = food
+        return render(request, "show.html", context)

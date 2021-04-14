@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/show.css' %}">
+{% endblock head %}
+    
+
+{% block main %}
+    <div class="show--wrapper">
+        <div class="food--details">
+            <div class="food--image">
+                <img src="{{food.food_image.url}}" alt="img">
+            </div>
+            <div class="food--detail--desc">
+                <div class="food--name">{{food.food_name}}</div>
+                <div class="food--des">{{food.food_desc}}</div>
+                <div class="food--discount">Discount {{food.discount_on_food}}%</div>
+                <div class="food--price">₹ {{food.food_price}}</div>
+                
+                {% if food.food_count > 0 %}
+                    <button class="submit--btn">Buy</button>
+                {% else %}
+                    <button class="submit--btn" disabled>Out of stock</button>
+                {% endif %}
+            </div>
+        </div>
+        
+        {% if user.is_authenticated %}
+            <div class="comment--title">Add a comment</div>
+            <hr color="#f19737">
+            <form action="#">
+                <textarea name="comment" id="comment" cols="30" rows="10"></textarea>
+                <button class="submit--btn">Add comment</button>
+            </form>
+        {% endif %}
+            
+        <div class="comments">
+            <div class="comment--title">Comments</div>
+            <hr color="#f19737">
+            <div class="comment-section">
+                <div class="comment">
+                    <div class="comment--user--detail">
+                        <div class="comment--by">Tarun</div>
+                        <div class="comment--date">12/03/2010</div>
+                    </div>
+                    <div class="user--comment">acha h</div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock main %}
+    

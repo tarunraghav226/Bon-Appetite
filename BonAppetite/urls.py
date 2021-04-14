@@ -33,4 +33,5 @@ urlpatterns = [
     path("delete/<str:id>/", views.DeleteFoodView.as_view(), name="delete"),
     path("add-food/", views.FoodView.as_view(), name="add_food"),
     path("show-food/", views.ShowFoodView.as_view(), name="show_food"),
+    path("show/<str:id>", views.ShowView.as_view(), name="show"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
