@@ -6,7 +6,7 @@ from django.views import View
 
 from helpers import food_helper, user_helper
 
-from .models import Food, Shop, UserDetails
+from .models import Food, Order, Shop, UserDetails
 
 
 def home(request):
@@ -319,3 +319,17 @@ class BuyView(View):
         )
 
         return render(request, "checkout.html", context=context)
+
+
+class OrderView(View):
+    def get(self, request, id):
+        food = Food.objects.filter(food_id=id)
+        if not food:
+            messages.error(request, "No food found")
+            return redirect("/shop/")
+        food = food[0]
+        order = Order.objects.create(user=request.user, food=food)
+        order.save()
+        food.food_count -= 1
+        food.save()
+        return redirect("/orders/")
