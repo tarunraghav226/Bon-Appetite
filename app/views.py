@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.models import User, auth
+from django.db.models import Q
 from django.shortcuts import redirect, render
 from django.views import View
 
@@ -266,3 +267,30 @@ class ShowView(View):
         food = food[0]
         context["food"] = food
         return render(request, "show.html", context)
+
+
+class SearchView(View):
+    def get(self, request):
+        context = {}
+
+        if request.user.is_authenticated:
+            user = UserDetails.objects.filter(user=request.user)[0]
+            context["is_seller"] = user.is_seller
+
+        search_vals = request.GET.get("search", "").split(" ")
+
+        if not search_vals:
+            return redirect("/show-food/")
+
+        foods = []
+
+        for search_val in search_vals:
+            foods.append(
+                Food.objects.filter(
+                    Q(food_name__contains=search_val)
+                    | Q(food_desc__contains=search_val)
+                )
+            )
+        foods = list(food[0] for food in foods if food)
+        context["foods"] = foods
+        return render(request, "show-food.html", context)
