@@ -19,7 +19,7 @@
                     {% for order in orders%}
                         <div class="food">
                             <hr>
-                            <div>{{order.food.food_name}}</div>
+                            <div>{{order.food.food_name}} <span>₹{{order.order_price}}</span></div>
                         </div>
                     {% endfor %}
                 </div>

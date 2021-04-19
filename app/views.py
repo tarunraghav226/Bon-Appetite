@@ -328,7 +328,12 @@ class OrderView(View):
             messages.error(request, "No food found")
             return redirect("/shop/")
         food = food[0]
-        order = Order.objects.create(user=request.user, food=food)
+        order = Order.objects.create(
+            user=request.user,
+            food=food,
+            order_price=food.food_price
+            - ((food.food_price * food.discount_on_food) / 100),
+        )
         order.save()
         food.food_count -= 1
         food.save()
