@@ -293,4 +293,6 @@ class SearchView(View):
             )
         foods = list(food[0] for food in foods if food)
         context["foods"] = foods
+        if not foods:
+            messages.error(request, "No food found.")
         return render(request, "show-food.html", context)
