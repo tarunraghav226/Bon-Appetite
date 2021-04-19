@@ -1,4 +1,6 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User, auth
 from django.db.models import Q
 from django.shortcuts import redirect, render
@@ -68,13 +70,17 @@ class Login(View):
             return redirect("/")
 
 
-class Logout(View):
+class Logout(LoginRequiredMixin, View):
+    login_url = "/"
+
     def get(self, request):
         auth.logout(request)
         return redirect("/")
 
 
-class ShopView(View):
+class ShopView(LoginRequiredMixin, View):
+    login_url = "/"
+
     def get(self, request):
         context = {}
 
@@ -108,7 +114,7 @@ class ShopView(View):
         return redirect("/shop/")
 
 
-class FoodView(View):
+class FoodView(LoginRequiredMixin, View):
     def get(self, request):
         context = {}
 
@@ -152,7 +158,9 @@ class FoodView(View):
         return redirect("/shop/")
 
 
-class EditFoodView(View):
+class EditFoodView(LoginRequiredMixin, View):
+    login_url = "/"
+
     def get(self, request, id):
         context = {}
 
@@ -221,7 +229,9 @@ class EditFoodView(View):
         return redirect("/shop/")
 
 
-class DeleteFoodView(View):
+class DeleteFoodView(LoginRequiredMixin, View):
+    login_url = "/"
+
     def get(self, request, id):
         shop = Shop.objects.filter(user=request.user)
 
@@ -322,7 +332,9 @@ class BuyView(View):
         return render(request, "checkout.html", context=context)
 
 
-class OrderView(View):
+class OrderView(LoginRequiredMixin, View):
+    login_url = "/"
+
     def get(self, request, id):
         food = Food.objects.filter(food_id=id)
         if not food:
@@ -341,7 +353,9 @@ class OrderView(View):
         return redirect("/orders/")
 
 
-class ShowOrderView(View):
+class ShowOrderView(LoginRequiredMixin, View):
+    login_url = "/"
+
     def get(self, request):
         context = {}
 
@@ -354,7 +368,9 @@ class ShowOrderView(View):
         return render(request, "orders.html", context)
 
 
-class CommentView(View):
+class CommentView(LoginRequiredMixin, View):
+    login_url = "/"
+
     def post(self, request):
         comment = request.POST.get("comment", None)
         food_id = request.POST.get("food_id", None)
