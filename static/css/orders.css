@@ -1,0 +1,22 @@
+.order--wrapper{
+    width: 100%;
+    min-height: 80vh;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.order--name{
+    font-size: 30px;
+    color: #f19737;
+}
+
+.order{
+    width: 70%;
+    margin: 20px auto;
+}
+
+.food{
+    font-size: 20px;
+    color: #d46666;
+}

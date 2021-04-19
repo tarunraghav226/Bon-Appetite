@@ -333,3 +333,16 @@ class OrderView(View):
         food.food_count -= 1
         food.save()
         return redirect("/orders/")
+
+
+class ShowOrderView(View):
+    def get(self, request):
+        context = {}
+
+        if request.user.is_authenticated:
+            user = UserDetails.objects.filter(user=request.user)[0]
+            context["is_seller"] = user.is_seller
+
+        orders = Order.objects.all()
+        context["orders"] = orders
+        return render(request, "orders.html", context)

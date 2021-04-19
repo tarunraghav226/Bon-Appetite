@@ -37,4 +37,5 @@ urlpatterns = [
     path("search/", views.SearchView.as_view(), name="search"),
     path("buy/<str:id>", views.BuyView.as_view(), name="buy"),
     path("order/<str:id>", views.OrderView.as_view(), name="order"),
+    path("orders/", views.ShowOrderView.as_view(), name="orders"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
