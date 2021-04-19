@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/checkout.css' %}">
+{% endblock head %}
+
+
+{% block main %}
+    <div class="checkout--container">
+        <div class="food--name">
+            <span>Food Name </span> <span>{{food.food_name}}</span>
+        </div>
+        <div class="food--desc">
+            <span>Food Description</span> <span>{{food.food_desc}}</span>
+        </div>
+        <div class="food--price">
+            <span>Food Price</span> <span>{{food.food_price}}</span>
+        </div>
+        <div class="food--discount">
+            <span>Food Discount</span> <span>{{food.discount_on_food}}</span>
+        </div>
+        <div class="price--after--discount">
+            <span>Discounted Price</span> <span>{{price_after_discount}}</span>
+        </div>
+        <a href="/order/{{food.food_id}}"><button class="submit--btn">Order</button></a>
+    </div>
+{% endblock main %}
+    

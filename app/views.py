@@ -296,3 +296,26 @@ class SearchView(View):
         if not foods:
             messages.error(request, "No food found.")
         return render(request, "show-food.html", context)
+
+
+class BuyView(View):
+    def get(self, request, id):
+        context = {}
+
+        if request.user.is_authenticated:
+            user = UserDetails.objects.filter(user=request.user)[0]
+            context["is_seller"] = user.is_seller
+
+        food_obj = Food.objects.filter(food_id=id, food_count__gt=0)
+
+        if not food_obj:
+            messages.error(request, "No food detail found")
+            return redirect("/shop/")
+        food_obj = food_obj[0]
+
+        context["food"] = food_obj
+        context["price_after_discount"] = food_obj.food_price - (
+            (food_obj.food_price * food_obj.discount_on_food) / 100
+        )
+
+        return render(request, "checkout.html", context=context)

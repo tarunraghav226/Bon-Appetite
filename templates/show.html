@@ -20,7 +20,7 @@
                 <div class="food--price">₹ {{food.food_price}}</div>
                 
                 {% if food.food_count > 0 %}
-                    <button class="submit--btn">Buy</button>
+                    <a href="/buy/{{food.food_id}}"><button class="submit--btn">Buy</button></a>
                 {% else %}
                     <button class="submit--btn" disabled>Out of stock</button>
                 {% endif %}
