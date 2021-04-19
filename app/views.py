@@ -6,7 +6,7 @@ from django.views import View
 
 from helpers import food_helper, user_helper
 
-from .models import Food, Order, Shop, UserDetails
+from .models import Food, FoodComment, Order, Shop, UserDetails
 
 
 def home(request):
@@ -266,6 +266,7 @@ class ShowView(View):
             return "/show-food/"
         food = food[0]
         context["food"] = food
+        context["comments"] = FoodComment.objects.filter(food=food)
         return render(request, "show.html", context)
 
 
@@ -351,3 +352,29 @@ class ShowOrderView(View):
         orders = Order.objects.all()
         context["orders"] = orders
         return render(request, "orders.html", context)
+
+
+class CommentView(View):
+    def post(self, request):
+        comment = request.POST.get("comment", None)
+        food_id = request.POST.get("food_id", None)
+        if not comment:
+            messages.error(request, "Comment should not be empty")
+            return redirect("/shop/")
+
+        if not food_id:
+            messages.error(request, "Error")
+            return redirect("/shop/")
+
+        food = Food.objects.filter(food_id=food_id)
+        if not food:
+            messages.error(request, "Food not found")
+            return redirect("/shop/")
+        food = food[0]
+
+        food_comment = FoodComment.objects.create(
+            user=request.user, food=food, comment=comment
+        )
+        food_comment.save()
+
+        return redirect(f"/show/{food.food_id}")

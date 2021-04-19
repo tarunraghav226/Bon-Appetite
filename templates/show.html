@@ -30,7 +30,9 @@
         {% if user.is_authenticated %}
             <div class="comment--title">Add a comment</div>
             <hr color="#f19737">
-            <form action="#">
+            <form action="/comment/" method="POST">
+                {% csrf_token %}
+                <input type="text" name="food_id" value="{{food.food_id}}" hidden>
                 <textarea name="comment" id="comment" cols="30" rows="10"></textarea>
                 <button class="submit--btn">Add comment</button>
             </form>
@@ -40,13 +42,22 @@
             <div class="comment--title">Comments</div>
             <hr color="#f19737">
             <div class="comment-section">
-                <div class="comment">
-                    <div class="comment--user--detail">
-                        <div class="comment--by">Tarun</div>
-                        <div class="comment--date">12/03/2010</div>
-                    </div>
-                    <div class="user--comment">acha h</div>
-                </div>
+                
+                
+                {% if comments %}
+                    {% for comment in comments %}
+                        <div class="comment">
+                            <div class="comment--user--detail">
+                                <div class="comment--by">{{comment.user.first_name}}</div>
+                                <div class="comment--date">{{comment.date_of_comment}}</div>
+                            </div>
+                            <div class="user--comment">{{comment.comment}}</div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    No Comment found
+                {% endif %}
+                    
             </div>
         </div>
     </div>

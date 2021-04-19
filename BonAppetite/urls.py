@@ -38,4 +38,5 @@ urlpatterns = [
     path("buy/<str:id>", views.BuyView.as_view(), name="buy"),
     path("order/<str:id>", views.OrderView.as_view(), name="order"),
     path("orders/", views.ShowOrderView.as_view(), name="orders"),
+    path("comment/", views.CommentView.as_view(), name="comment"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
