@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/show.css' %}">
+{% endblock head %}
+    
+
+{% block main %}
+    <div class="show--wrapper">
+        <div class="food--details">
+            <div class="food--image">
+                <img src="{{food.food_image.url}}" alt="img">
+            </div>
+            <div class="food--detail--desc">
+                <div class="food--name">{{food.food_name}}</div>
+                <div class="food--des">{{food.food_desc}}</div>
+                <div class="food--discount">Discount {{food.discount_on_food}}%</div>
+                <div class="food--price">₹ {{food.food_price}}</div>
+                
+                {% if food.food_count > 0 %}
+                    <a href="/buy/{{food.food_id}}"><button class="submit--btn">Buy</button></a>
+                {% else %}
+                    <button class="submit--btn" disabled>Out of stock</button>
+                {% endif %}
+            </div>
+        </div>
+        
+        {% if user.is_authenticated %}
+            <div class="comment--title">Add a comment</div>
+            <hr color="#f19737">
+            <form action="/comment/" method="POST">
+                {% csrf_token %}
+                <input type="text" name="food_id" value="{{food.food_id}}" hidden>
+                <textarea name="comment" id="comment" cols="30" rows="10"></textarea>
+                <button class="submit--btn">Add comment</button>
+            </form>
+        {% endif %}
+            
+        <div class="comments">
+            <div class="comment--title">Comments</div>
+            <hr color="#f19737">
+            <div class="comment-section">
+                
+                
+                {% if comments %}
+                    {% for comment in comments %}
+                        <div class="comment">
+                            <div class="comment--user--detail">
+                                <div class="comment--by">{{comment.user.first_name}}</div>
+                                <div class="comment--date">{{comment.date_of_comment}}</div>
+                            </div>
+                            <div class="user--comment">{{comment.comment}}</div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    No Comment found
+                {% endif %}
+                    
+            </div>
+        </div>
+    </div>
+{% endblock main %}
+    

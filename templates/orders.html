@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/orders.css' %}">
+{% endblock head %}
+    
+
+{% block main %}
+<div class="order--wrapper">
+    <div class="order">
+        <div class="order--name">
+            {{ user.first_name }}
+        </div>
+        <div class="food--list">
+            {% if orders %}
+                <div class="foods">
+                    {% for order in orders%}
+                        <div class="food">
+                            <hr>
+                            <div>{{order.food.food_name}} <span>₹{{order.order_price}}</span></div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="food--message">
+                    No Orders found
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock main %}
+    

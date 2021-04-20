@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/show-food.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+{% endblock %}
+
+
+{% block main %}
+    <div class="show--food--wrapper">
+        <div class="search--box">
+            <form action="/search/" method="GET">
+                <input type="text" name="search">
+                <button><i class="fa fa-search" aria-hidden="true"></i></button>
+            </form>                
+        </div>
+        <div class="food--list">
+            
+            {% for food in foods %}
+            <div class="food--container">
+                <div class="food--image">
+                    <img src="{{food.food_image.url}}" alt="">
+                </div>
+                <div class="food--desc">
+                    <div class="food--name">{{food.food_name}}</div>
+                    <div class="food--price">₹ {{food.food_price}}</div>
+                </div>
+                <div class="food--controls">
+                    <button class="submit--btn"><a href="/show/{{food.food_id}}">View</a></button>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

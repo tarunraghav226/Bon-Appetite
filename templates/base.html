@@ -8,21 +8,31 @@
   <title>Bon Appetite</title>
   <link rel="stylesheet" href="{% static 'css/base.css' %}">
   <script src="{% static 'javascript/login_signup_modal.js' %}" defer ></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   {% block head%}
   {% endblock%}
 </head>
 <body>
     <header class="header">
-        <span class="company--name">Bon Appetite</span>
+      <a href="/"><span class="company--name">Bon Appetite</span></a>
+      <input type="checkbox" name="toggler" id="toggler" hidden>
         <ul class="header--ul">
-          <li class="header--li">Home</li>
+          <a href="/"><li class="header--li">Home</li></a>
             {% if not user.is_authenticated %}
               <li class="header--li" id="login">Login</li>
               <li class="header--li" id="signup">SignUp</li>
             {% else %}
               <a href="/logout/"><li class="header--li" id="logout">Logout</li></a>
+              <a href="/orders/"><li class="header--li" id="logout">Orders</li></a>
+              {% if is_seller %}
+              <a href="/shop/"><li class="header--li" >Shop</li></a>
+              {% endif %}
             {% endif %}
+          <a href="/show-food/"><li class="header--li" >Foods</li></a>
         </ul>
+        <label for="toggler">
+          <span class="fa fa-bars"></span>
+        </label>
     </header>
     <div class="overlay--modal" >
       <div class="close--modal--btn">X</div>

@@ -13,14 +13,14 @@ modalOverlay.style.display = "none";
 closeModalBtn.style.display = "none";
 signUpForm.style.display = "none";
 
-closeModalBtn.addEventListener('click', ()=>{
+closeModalBtn?.addEventListener('click', ()=>{
     loginForm.style.display = "none";
     modalOverlay.style.display = "none";
     closeModalBtn.style.display = "none";
     signUpForm.style.display = "none";
 });
 
-login.addEventListener('click', ()=>{
+login?.addEventListener('click', ()=>{
     if(modalOverlay.style.display == "block" && 
         signUpForm.style.display !== "block"){
         closeModalBtn.style.display = "none";
@@ -40,7 +40,7 @@ login.addEventListener('click', ()=>{
 
 });
 
-signup.addEventListener('click', ()=>{
+signup?.addEventListener('click', ()=>{
     if(modalOverlay.style.display == "block" && 
         loginForm.style.display !== "block"){
         closeModalBtn.style.display = "none";
@@ -59,6 +59,6 @@ signup.addEventListener('click', ()=>{
         signUpForm.style.display = "block";
 });
 
-messageCloseBtn.addEventListener("click", ()=>{
+messageCloseBtn?.addEventListener("click", ()=>{
     document.querySelector(".messages").style.display = "none";
 });

@@ -46,3 +46,4 @@ class Order(models.Model):
     user = models.ForeignKey(to=User, on_delete=models.CASCADE)
     food = models.ForeignKey(to=Food, on_delete=models.CASCADE)
     date_of_order = models.DateTimeField(default=datetime.datetime.now)
+    order_price = models.FloatField(default=0)

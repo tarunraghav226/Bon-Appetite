@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head%}
+    <link rel="stylesheet" href="{% static 'css/shop.css' %}">
+{% endblock %}
+
+{% block main%}
+    {% if shop %}
+        <div class="shop--wrapper">
+            <div class="shop">
+                <div class="shop--name">
+                    {{ shop.shop_name }}
+                    <hr>
+                </div>
+                <div class="food--list">
+                    {% if foods %}
+                        <div class="foods">
+                            {% for food in foods%}
+                                <div class="food">
+                                    <div>{{food.food_name}}</div>
+                                    <div>
+                                        <a href="{% url 'edit' food.food_id %}">Edit</a>
+                                        <a href="{% url 'delete' food.food_id %}">Delete</a>
+                                    </div>
+                                </div>
+                                <hr>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="food--message">
+                            No food added in your shop
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="btn--wrapper">
+                    <a href="/add-food/"><button class="submit--btn">Add More</button></a>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <form action="/shop/" method="POST" class="form--shop">
+            {% csrf_token %}
+            <label for="shop_name">Shop Name</label><br>
+            <input type="text" name="shop_name" id="shop_name"><br>
+
+            <label for="shop_address">Shop Address</label><br>
+            <input type="text" name="shop_address" id="shop_address"><br>
+
+            <button type="submit" class="submit--btn">Submit</button><br>
+        </form>
+    {% endif %}
+{% endblock %}
