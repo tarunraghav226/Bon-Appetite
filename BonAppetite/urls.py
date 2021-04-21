@@ -15,10 +15,10 @@ Including another URLconf
 """
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path
+from django.urls import include, path
+from rest_framework import routers
 
-from app import views
-from . import settings
+from app import api_views, views
 
 from . import settings
 
@@ -41,3 +41,14 @@ urlpatterns = [
     path("orders/", views.ShowOrderView.as_view(), name="orders"),
     path("comment/", views.CommentView.as_view(), name="comment"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+api_urls = [
+    path("api/v1/all-foods/", api_views.AllFoodAPIView.as_view()),
+    path("api/v1/foods/<str:food_id>/", api_views.FoodAPIView.as_view()),
+    path("api/v1/comments/<str:food_id>/", api_views.FoodCommentAPIView.as_view()),
+    path("api/v1/orders/<str:user_id>", api_views.OrderAPIView.as_view()),
+    path("api/v1/shops/<str:user_id>", api_views.ShopAPIView.as_view()),
+]
+
+urlpatterns += api_urls
