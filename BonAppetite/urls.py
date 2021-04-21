@@ -22,8 +22,6 @@ from app import api_views, views
 
 from . import settings
 
-router = routers.DefaultRouter()
-
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", views.home, name="home"),
