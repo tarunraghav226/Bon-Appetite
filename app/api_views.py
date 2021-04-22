@@ -46,7 +46,9 @@ class FoodCommentAPIView(generics.CreateAPIView, generics.RetrieveUpdateDestroyA
     lookup_field = "food_id"
 
 
-class OrderAPIView(generics.CreateAPIView, generics.RetrieveDestroyAPIView):
+class OrderAPIView(
+    generics.ListAPIView, generics.CreateAPIView, generics.DestroyAPIView
+):
 
     queryset = models.Order.objects.all()
     serializer_class = serializers.OrderSerializer
