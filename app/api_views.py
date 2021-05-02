@@ -1,13 +1,10 @@
-import datetime
-
-import jwt
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.http import JsonResponse
 from rest_framework import generics
 from rest_framework.views import APIView
 
-from BonAppetite import settings
+from helpers import jwt_authentication_helper
 
 from . import models, serializers
 
@@ -70,17 +67,7 @@ class GenerateAuthTokenView(APIView):
         data = {}
         if user:
             data["status"] = 200
-
-            payload = {
-                "exp": datetime.datetime.utcnow()
-                + datetime.timedelta(days=0, seconds=5),
-                "iat": datetime.datetime.utcnow(),
-                "sub": user.username,
-            }
-            token = jwt.encode(
-                payload=payload, key=settings.JWT_SECRET, algorithm="HS256"
-            )
-
+            token = jwt_authentication_helper.get_jwt_auth_token(request, user)
             data["auth-token"] = token
         else:
             data["status"] = 404
