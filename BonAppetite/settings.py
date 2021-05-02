@@ -131,3 +131,6 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+
+JWT_SECRET = "1f93268fa312a130bfdcdd26dd06ab480dc5d06e7e90c655"

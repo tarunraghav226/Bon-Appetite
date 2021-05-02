@@ -49,6 +49,7 @@ api_urls = [
     path("api/v1/comments/<str:food_id>/", api_views.FoodCommentAPIView.as_view()),
     path("api/v1/orders/<str:user_id>", api_views.OrderAPIView.as_view()),
     path("api/v1/shops/<str:user_id>", api_views.ShopAPIView.as_view()),
+    path("api/v1/auth-token/", api_views.GenerateAuthTokenView.as_view()),
 ]
 
 urlpatterns += api_urls

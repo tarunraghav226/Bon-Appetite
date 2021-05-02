@@ -1,6 +1,13 @@
+import datetime
+
+import jwt
+from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.http import JsonResponse
 from rest_framework import generics
+from rest_framework.views import APIView
+
+from BonAppetite import settings
 
 from . import models, serializers
 
@@ -53,3 +60,29 @@ class OrderAPIView(
     queryset = models.Order.objects.all()
     serializer_class = serializers.OrderSerializer
     lookup_field = "user_id"
+
+
+class GenerateAuthTokenView(APIView):
+    def post(self, request, *args, **kwargs):
+        email = request.POST.get("email", None)
+        password = request.POST.get("password", None)
+        user = authenticate(username=email, password=password)
+        data = {}
+        if user:
+            data["status"] = 200
+
+            payload = {
+                "exp": datetime.datetime.utcnow()
+                + datetime.timedelta(days=0, seconds=5),
+                "iat": datetime.datetime.utcnow(),
+                "sub": user.username,
+            }
+            token = jwt.encode(
+                payload=payload, key=settings.JWT_SECRET, algorithm="HS256"
+            )
+
+            data["auth-token"] = token
+        else:
+            data["status"] = 404
+            data["message"] = "User Not Found"
+        return JsonResponse(status=200, data=data)
