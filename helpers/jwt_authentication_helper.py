@@ -1,13 +1,20 @@
 import datetime
 
 import jwt
+from rest_framework import exceptions
 
 from BonAppetite import settings
 
 
 def get_username_from_jwt(request, *args, **kwargs):
     auth_token = request.headers.get("X-Auth-Token", None)
-    payload = jwt.decode(auth_token, key=settings.JWT_SECRET, algorithms=["HS256"])
+    if not auth_token:
+        raise exceptions.AuthenticationFailed("Authentication required.")
+    try:
+        payload = jwt.decode(auth_token, key=settings.JWT_SECRET, algorithms=["HS256"])
+    except jwt.ExpiredSignatureError:
+        raise exceptions.AuthenticationFailed("Token expired")
+
     return payload.get("sub", None)
 
 
