@@ -4,6 +4,7 @@ from django.http import JsonResponse
 from rest_framework import generics
 from rest_framework.views import APIView
 
+from app import authentication
 from helpers import jwt_authentication_helper
 
 from . import models, serializers
@@ -14,6 +15,7 @@ class ShopAPIView(generics.CreateAPIView, generics.RetrieveDestroyAPIView):
     queryset = models.Shop.objects.all()
     serializer_class = serializers.ShopSerializer
     lookup_field = "user_id"
+    authentication_classes = (authentication.JWTAuthentication,)
 
     def create(self, request, *args, **kwargs):
         super(ShopAPIView, self).create(request, *args, **kwargs)
@@ -37,17 +39,20 @@ class FoodAPIView(generics.CreateAPIView, generics.RetrieveUpdateDestroyAPIView)
     queryset = models.Food.objects.all()
     serializer_class = serializers.FoodSerializer
     lookup_field = "food_id"
+    authentication_classes = (authentication.JWTAuthentication,)
 
 
 class AllFoodAPIView(generics.ListAPIView):
     queryset = models.Food.objects.all()
     serializer_class = serializers.FoodSerializer
+    authentication_classes = (authentication.JWTAuthentication,)
 
 
 class FoodCommentAPIView(generics.CreateAPIView, generics.RetrieveUpdateDestroyAPIView):
     queryset = models.FoodComment.objects.all()
     serializer_class = serializers.FoodCommentSerializer
     lookup_field = "food_id"
+    authentication_classes = (authentication.JWTAuthentication,)
 
 
 class OrderAPIView(
@@ -57,9 +62,13 @@ class OrderAPIView(
     queryset = models.Order.objects.all()
     serializer_class = serializers.OrderSerializer
     lookup_field = "user_id"
+    authentication_classes = (authentication.JWTAuthentication,)
 
 
 class GenerateAuthTokenView(APIView):
+    authentication_classes = []
+    permission_classes = []
+
     def post(self, request, *args, **kwargs):
         email = request.POST.get("email", None)
         password = request.POST.get("password", None)

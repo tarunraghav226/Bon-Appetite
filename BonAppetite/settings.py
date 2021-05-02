@@ -134,3 +134,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 
 JWT_SECRET = "1f93268fa312a130bfdcdd26dd06ab480dc5d06e7e90c655"
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "app.authentication.JWTAuthentication",
+    ],
+}
