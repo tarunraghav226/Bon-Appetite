@@ -24,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "tkp^j4ko@4&y485y+4cqp@ti&=6=t+wdibdnlpn$r7seq8)pp6"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["bon-appetite-live.herokuapp.com", "127.0.0.1"]
 
 # POSTGRESQL credentials
 DATABASE_NAME = "bonappetitedb"

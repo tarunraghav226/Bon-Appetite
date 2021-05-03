@@ -1,0 +1,1 @@
+web: gunicorn BonAppetite.wsgi --log-file -
