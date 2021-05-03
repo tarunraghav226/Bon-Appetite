@@ -11,7 +11,7 @@
     width: 80%;
     margin: 10px auto;
 
-    z-index: -1;
+    z-index: 1;
 }
 
 .search--box form{
